@@ -204,13 +204,6 @@ Input → Embedding → [RMSNorm → QKV Projection → RoPE → Attention → D
                         → LM Head → Output
 ```
 
-## 横向对比速览
-
-- **数据风格**：网页、代码、数学/科学语料占比相对突出
-- **后训练路线**：从 RLHF 逐步过渡到更常见的 DPO 等方案
-- **架构标签**：开源生态里最有代表性的 Dense Transformer 路线之一
-- **公开程度**：相对较高，适合作为理解开源大模型训练流程的入门样本
-
 ## 训练资源
 
 | 模型 | GPU | GPU Hours | 训练 Token 数 |
