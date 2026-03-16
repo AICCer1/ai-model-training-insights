@@ -7,7 +7,7 @@
 - **Qwen 2** (2024年5月) - 全面升级
 - **Qwen 2.5** (2024年9月) - 性能大幅提升
 - **Qwen 3** (2025年) - 新一代旗舰，MoE 版本引入专家路由
-- **Qwen 3.5** (2026年) - 混合注意力路线，原生超长上下文，包含 Dense / MoE 双版本
+- **Qwen 3.5** (2026年) - 混合注意力路线，原生视觉-语言模型路线，包含 Dense / MoE 双版本
 - **Qwen-VL / Qwen3.5-VL** - 视觉多模态版本
 - **Qwen-Coder** - 代码专用版本
 - **Qwen-Math** - 数学专用版本
@@ -47,14 +47,14 @@ flowchart TD
 - **数学/科学**：20%
 - **多语言文本**：15%
 
-**Qwen 3.5 数据特点（公开信息推断）**：
+**Qwen 3.5 数据特点（公开资料总结 / 部分推断）**：
 - **高质量网页 / 通用文本**：继续作为主体，支撑通用语言能力
-- **代码与技术文档**：保持较高占比，服务代码与 Agent 场景
-- **数学 / 科学 / 推理数据**：进一步增强推理与复杂任务能力
-- **多语言数据**：用于保持多语言泛化
-- **视觉-语言相关数据**：服务原生视觉-语言版本
+- **代码与技术文档**：服务代码、Agent 与复杂任务场景
+- **数学 / 科学 / 推理数据**：支撑复杂推理与 benchmark 表现
+- **多语言数据**：官博明确提到语言与方言支持从 **119 扩展到 201**
+- **视觉-语言相关数据**：官博明确将 Qwen3.5-397B-A17B 描述为 **native vision-language model**
 
-> 注：Qwen 3.5 的精确 token 数和严格配比未完全公开，上述内容更适合视作“基于公开资料的训练方向总结”，而不是官方定稿数字。
+> 注：Qwen 3.5 的精确 token 数和严格配比未完全公开，上述内容更适合视作“基于公开资料与官博描述的训练方向总结”，而不是官方定稿数字。
 
 #### 数据清洗方法
 
@@ -127,11 +127,11 @@ flowchart TD
 - **高质量人类反馈**
 - **长上下文对齐**
 
-#### Qwen 3.5 对齐重点（公开信息总结）
-- **长上下文场景对齐**：让超长输入下的回答稳定性更强
-- **Agent / 工具使用场景优化**：更关注复杂任务链路、代码与工具调用
-- **多模态交互对齐**：原生视觉-语言模型需要统一图文理解行为
-- **推理质量优化**：通过更高质量偏好数据和后训练流程提升复杂任务表现
+#### Qwen 3.5 对齐重点（公开资料 + 官博总结）
+- **长上下文场景对齐**：官博提到 `Qwen3.5-Plus` 默认提供 **1M context window**，说明长上下文使用是官方重点场景
+- **Agent / 工具使用场景优化**：官博明确强调 agent capabilities，并提到官方内置工具与 adaptive tool use
+- **多模态交互对齐**：官博明确将 Qwen3.5-397B-A17B 描述为 **native vision-language model**
+- **推理质量优化**：官博 benchmark 覆盖 reasoning、coding、agent、多模态等多类任务
 
 ## 架构特点
 
@@ -173,14 +173,14 @@ flowchart TD
     OUT --> MTP[MTP / 多 Token 预测\n后训练阶段继续优化]
 ```
 
-Qwen 3.5 最值得关注的地方，不只是模型更大，而是它在 block 设计上换了一条路线。
+Qwen 3.5 最值得关注的地方，不只是模型更大，而是它在 block 设计上换了一条路线。官博明确描述其为：**an innovative hybrid architecture that fuses linear attention (via Gated Delta Networks) with a sparse mixture-of-experts**。
 
 **核心特点**：
 - **Gated DeltaNet + Gated Attention 混合 block**
 - **两类 block 比例约 3:1**
 - **Dense 版**：混合注意力 + FFN
 - **MoE 版**：混合注意力 + MoE
-- **原生视觉-语言模型路线**
+- **原生视觉-语言模型路线**（官博直接表述：native vision-language model）
 - **主模型输出后接 MTP（Multi-Token Prediction）**
 
 可以把它粗略理解成：
@@ -274,6 +274,7 @@ flowchart LR
 - 视觉编码器 + 语言模型
 - 图文理解能力
 - 文档 OCR
+- 官博明确将 Qwen3.5-397B-A17B 描述为 **native vision-language model**
 - Qwen 3.5 延续原生视觉-语言路线，更强调统一多模态表示
 
 ### Qwen-Coder (代码)
@@ -286,6 +287,19 @@ flowchart LR
 - 数学推理增强
 - Chain-of-Thought
 - LaTeX 支持
+
+## 官博可直接确认的信息
+
+- **Qwen3.5-397B-A17B** 是 Qwen 3.5 系列首个 open-weight 模型
+- 官博直接称其为 **native vision-language model**
+- 官博直接称其采用 **hybrid architecture**：
+  - `linear attention (via Gated Delta Networks)`
+  - `sparse mixture-of-experts`
+- 官博直接给出：
+  - **397B total parameters**
+  - **17B activated per forward pass**
+- 官博直接提到：语言与方言支持从 **119 扩展到 201**
+- 官博直接提到：**Qwen3.5-Plus**（托管版本）默认提供 **1M context window**、官方 built-in tools 与 adaptive tool use
 
 ## 训练资源
 
