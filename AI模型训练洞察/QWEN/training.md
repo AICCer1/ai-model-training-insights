@@ -14,6 +14,16 @@
 
 ## 训练流程
 
+```mermaid
+flowchart TD
+    A[多源原始数据\n网页 / 代码 / 数学科学 / 多语言 / 多模态] --> B[数据清洗\n质量过滤 / 去重 / 安全过滤]
+    B --> C[分词与样本构建\nBPE / 长序列打包]
+    C --> D[预训练 Pre-training\n学习通用语言与长上下文能力]
+    D --> E[SFT 有监督微调\n高质量指令 / 代码 / 复杂任务]
+    E --> F[对齐训练\nRLHF / DPO / GRPO / 偏好优化]
+    F --> G[专项版本继续增强\nVL / Coder / Math / Agent]
+```
+
 ### 1. 预训练 (Pre-training)
 
 #### 数据来源与配比
@@ -146,6 +156,22 @@
 ```
 
 ### 3. 混合注意力架构 (Qwen 3.5)
+
+```mermaid
+flowchart TD
+    IN[输入表示\nToken + 位置编码] --> GD1[Gated DeltaNet Block]
+    GD1 --> GD2[Gated DeltaNet Block]
+    GD2 --> GD3[Gated DeltaNet Block]
+    GD3 --> GA[Gated Attention Block]
+
+    GA --> CHOICE{版本分支}
+    CHOICE -->|Dense| FFN[FFN / Dense 前馈层]
+    CHOICE -->|MoE| MOE[MoE 专家层\n路由专家 + 共享专家]
+
+    FFN --> OUT[层输出\n进入下一组 block]
+    MOE --> OUT
+    OUT --> MTP[MTP / 多 Token 预测\n后训练阶段继续优化]
+```
 
 Qwen 3.5 最值得关注的地方，不只是模型更大，而是它在 block 设计上换了一条路线。
 
