@@ -1,13 +1,53 @@
+
 # GLM 系列模型训练洞察
 
-## 模型系列
+> 📊 **汇报重点**：GLM-4 → GLM-5 演进，特别是 GLM-5 的 Agentic Engineering 定位
 
-- **GLM-4** (2024年1月) - 智谱 / Z.AI 旗舰模型，支持长上下文
-- **GLM-4V** (2024年1月) - 视觉多模态版本
-- **GLM-4Plus** (2024年8月) - 增强版，性能提升
-- **GLM-4.5** (2025年) - 面向 reasoning / coding / agent 的 MoE 基础模型，128K 上下文
-- **GLM-4.7** (2025年) - 在 4.5 路线上继续强化编程、多步执行与前端生成能力，200K 上下文
-- **GLM-5** (2026年) - 新一代旗舰基础模型，面向 **Agentic Engineering**
+---
+
+## 📋 GLM-5 训练全景图
+
+```mermaid
+flowchart LR
+    subgraph 预训练["🔧 预训练阶段"]
+        P1[数据清洗<br/>15T→28.5T tokens] --> P2[基础训练<br/>通用能力]
+        P2 --> P3[长上下文增强<br/>200K]
+    end
+    
+    subgraph 微调["📚 SFT阶段"]
+        S1[指令微调<br/>工具调用] --> S2[代码强化<br/>Agent任务]
+    end
+    
+    subgraph 对齐["🎯 对齐阶段"]
+        A1[RLHF<br/>偏好学习] --> A2[Agent强化<br/>工具使用]
+    end
+    
+    P3 --> S1
+    S2 --> A1
+    A1 --> A2
+    
+    style 预训练 fill:#e3f2fd
+    style 微调 fill:#f3e5f5
+    style 对齐 fill:#e8f5e9
+```
+
+### 核心数据规模
+
+| 阶段 | GLM-4 | GLM-4.5 | GLM-5 |
+|------|-------|---------|-------|
+| 预训练数据 | ~2T | 15T | **28.5T** |
+| 上下文 | 128K | 128K | **200K** |
+| 架构 | Dense | MoE | **MoE + DSA** |
+| 专家数 | - | 160 | **256** |
+
+### GLM-5 独有特点
+
+1. **Agentic Engineering 定位**：专门针对 Agent 场景优化
+2. **DSA (Direct Self-Attention)**：新型注意力机制
+3. **256 专家 MoE**：更大规模的混合专家架构
+4. **28.5T 训练数据**：业界领先的大规模训练
+
+---
 
 ## 训练流程
 
