@@ -7,7 +7,15 @@
 - `GPT/` - GPT 系列训练洞察
 - `LLaMA/` - LLaMA 系列训练洞察
 - `Claude/` - Claude 系列训练洞察
-- `common/` - 通用训练方法与数据格式
+- `common/` - 通用训练方法、数据格式、平台与模型工厂洞察
+
+## 最近补充
+
+### 企业平台 / 模型工厂方向
+- `common/enterprise-platform-landscape.md`
+  - 看全球前沿公司与中国企业在训练、推理、平台化上的差异
+- `common/internal-model-factory.md`
+  - 站在产品和平台视角，思考公司内部应该提供什么样的模型生产线服务
 
 ## 包含内容
 
