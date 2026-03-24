@@ -18,15 +18,18 @@
 
 ## 训练平台
 
-- **Meta 自研集群**：Research SuperCluster (RSC)
-- **预期合作**：可能使用 AWS/GCP
+- **自研集群**：Research SuperCluster (RSC)
+- **云平台合作**：可能使用 AWS/GCP
+- **框架**：Megatron-LM + 自研优化
 
 ## 分布式训练
 
-- **框架**: Meta 自研训练框架
+- **框架**: Megatron-LM + 自研
 - **技术**:
-  - 流水线并行
-  - 张量并行
+  - 流水线并行 (PP)
+  - 张量并行 (TP)
+  - 数据并行 (DP)
+  - 3D 并行策略
   - 梯度累积
 
 ## 训练成本估算
