@@ -51,9 +51,13 @@
 **数据来源**：
 | 数据集 | 数量 | 来源 |
 |--------|------|------|
-| InstructGPT SFT | ~13k | 人工标注 |
+| InstructGPT SFT | ~14.7k | 人工标注演示 |
 | Alpaca | ~52k | Self-Instruct 自动生成 |
 | FLAN | ~1.8M | 多种任务集合 |
+
+**InstructGPT 标注来源**：
+- Labeler-written demonstrations
+- API用户提交的 prompts
 
 **数据格式**：
 ```json
@@ -78,6 +82,12 @@
 **数据**：人类偏好排序数据
 - **Promptiverse**：各类指令
 - **Helpfulness 数据集**：人类标注的偏好对
+
+**InstructGPT 详细数据** ⭐：
+| 数据集 | 数量 | 说明 |
+|--------|------|------|
+| 奖励模型对比数据 | ~33.3K | Pairwise comparisons |
+| RL prompts | ~31.7K | PPO训练使用 |
 
 **训练方法**：
 - 使用 SFT 模型初始化

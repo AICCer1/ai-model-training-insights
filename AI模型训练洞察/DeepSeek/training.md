@@ -70,8 +70,17 @@
 | DeepSeek-Clean | 数十万 | 高质量指令对话 |
 | 公开指令数据 | 混合 | 开源SFT数据 |
 
-#### 训练配置
-- **学习率**：1e-5 ~ 5e-6
+#### DeepSeekMath 特定 SFT 数据
+
+| 数据类型 | 描述 | 特点 |
+|---------|------|------|
+| Chain-of-Thought (CoT) | 数学推理链数据 | 逐步推理过程 |
+| Program-of-Thought (PoT) | 代码辅助推理数据 | 代码+数学结合 |
+| Tool-Integrated Reasoning | 工具集成推理 | 外部工具调用 |
+
+**训练配置**：
+- **Batch Size**：10M tokens
+- **Learning Rate**：4.2e-4
 - **Epochs**：2
 - **序列长度**：4K / 8K
 
@@ -83,15 +92,32 @@
 - 无需显式奖励模型
 - 组内相对排序优化
 - 更稳定的训练
+- 相比 PPO 省略 critic model，显著降低训练资源
 
 ```python
 # GRPO损失函数
 L = -log(σ(r_chosen - r_rejected))
 ```
 
-#### DeepSeek Math特殊训练
-- **PPO** + **组织级强化学习**
-- 数学推理链(Chain-of-Thought)优化
+#### DeepSeekMath GRPO 详细配置 ⭐
+
+| 参数 | 值 | 说明 |
+|------|-----|------|
+| Learning Rate | 1e-6 | 策略模型学习率 |
+| KL Coefficient | 0.04 | KL散度惩罚系数 |
+| 每问题采样数 | 64 | 生成64个输出用于组内比较 |
+| Max Length | 1024 | 最大生成长度 |
+| Training Batch Size | 1024 | 训练批量大小 |
+
+**Reward Model 训练**：
+- 基于 DeepSeekMath-Base 7B 初始化
+- Learning Rate: 2e-5
+- 用于 GRPO 的奖励信号
+
+**RL 效果提升**：
+- GSM8K: 82.9% → 88.2%
+- MATH: 46.8% → 51.7%
+- CMATH: 84.6% → 88.8%
 
 ## 架构特点
 
