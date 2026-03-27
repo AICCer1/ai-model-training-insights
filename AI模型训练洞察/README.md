@@ -11,6 +11,12 @@
 
 ## 最近补充
 
+### SFT 与 RL 数据资源调研
+- `common/sft-rl-data-compute-survey.md`
+  - 系统梳理业界主流模型在 SFT 和 RL 阶段使用的数据规模与计算资源
+  - 涵盖 InstructGPT、Llama 2/3、DeepSeek-R1、Kimi k1.5、Qwen3 等模型
+  - 对比开源与闭源模型的透明度差异，总结长 CoT 推理模型的新范式
+
 ### 企业训练平台总览
 - `common/enterprise-platform-landscape.md`
   - 用一篇文章集中梳理全球与中国主要企业的大模型训练 / 推理平台形态
